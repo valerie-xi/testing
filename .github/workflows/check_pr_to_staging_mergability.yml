@@ -6,7 +6,7 @@ name: Check pr to staging mergability
 on:
   pull_request:
     branches:
-      - 'main'
+      - 'staging'
 jobs:
   Job:
     runs-on: ubuntu-latest
