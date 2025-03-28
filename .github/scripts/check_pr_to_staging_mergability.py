@@ -5,9 +5,9 @@ sha = os.environ["COMMIT_SHA"]
 access_token = os.environ["ADMIN_TOKEN"]
 
 g = Github(access_token)
-repo = g.get_repo("vetsuccess/analytics")
+repo = g.get_repo("valerie-xi/testing")
 for pull in repo.get_pulls():
-    if pull.base.ref == 'production':
+    if pull.base.ref == 'main':
         staging_to_production_pr_is_open = True
         break
 else:

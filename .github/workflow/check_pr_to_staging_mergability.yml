@@ -1,0 +1,24 @@
+# Checks for existing staging to production PR and blocks merge to staging if one exists
+# Purpose is to prevent expensive re-runs of staging to production PR tests caused by pushes
+# It is triggered when a pull request is opened to staging.
+
+name: Check pr to staging mergability
+on:
+  pull_request:
+    branches:
+      - 'main'
+jobs:
+  Job:
+    runs-on: ubuntu-latest
+    env:
+      ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+      COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Install PyGithub
+        run: python -m pip install PyGithub==1.55
+
+      - name: Run script
+        run: python .github/scripts/check_pr_to_staging_mergability.py
